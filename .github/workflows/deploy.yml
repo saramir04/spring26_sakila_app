@@ -33,7 +33,7 @@ jobs:
           echo "- **Status:** Deployed to staging" >> $GITHUB_STEP_SUMMARY
 
       - name: Notify
-        run: echo "Slack notification: Deployment to staging successful"
+        run: echo "Slack notification - Deployment to staging successful"
 
   deploy-production:
     runs-on: ubuntu-latest
@@ -47,16 +47,5 @@ jobs:
           echo "Deploying to production..."
           echo "Version: v$(date +'%Y.%m.%d')"
 
-      - name: Create GitHub Release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: v${{ github.run_number }}
-          release_name: Release v${{ github.run_number }}
-          body: "Automated production release from commit ${{ github.sha }}"
-          draft: false
-          prerelease: false
-
       - name: Notify
-        run: echo "Slack notification: Deployment to production successful"
+        run: echo "Slack notification - Deployment to production successful"
