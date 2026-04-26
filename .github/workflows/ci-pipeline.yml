@@ -53,6 +53,7 @@ jobs:
       MYSQL_USER: root
       MYSQL_PASSWORD: admin
       MYSQL_DB: sakila
+      PYTHONPATH: ${{ github.workspace }}
 
     steps:
       - uses: actions/checkout@v4
