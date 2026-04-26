@@ -22,18 +22,16 @@ jobs:
       - name: Deploy to Staging
         run: |
           echo "Deploying to staging environment..."
-          echo "IMAGE: sakila-app:${{ github.sha }}"
-          echo "BRANCH: ${{ github.ref_name }}"
+          echo "BRANCH ${{ github.ref_name }}"
 
       - name: Write Job Summary
         run: |
           echo "## Staging Deployment Summary" >> $GITHUB_STEP_SUMMARY
-          echo "- **Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
-          echo "- **Branch:** ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
-          echo "- **Status:** Deployed to staging" >> $GITHUB_STEP_SUMMARY
+          echo "Commit ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "Status Deployed to staging" >> $GITHUB_STEP_SUMMARY
 
       - name: Notify
-        run: echo "Slack notification - Deployment to staging successful"
+        run: echo "Slack notification Deployment to staging successful"
 
   deploy-production:
     runs-on: ubuntu-latest
@@ -45,7 +43,6 @@ jobs:
       - name: Deploy to Production
         run: |
           echo "Deploying to production..."
-          echo "Version: v$(date +'%Y.%m.%d')"
 
       - name: Notify
-        run: echo "Slack notification - Deployment to production successful"
+        run: echo "Slack notification Deployment to production successful"
