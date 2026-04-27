@@ -1,21 +1,32 @@
-# Use an official Python runtime as a base image
+# Use lightweight image
 FROM python:3.9-slim
 
-# Set the working directory inside the container
+# Metadata
+LABEL maintainer="Sara" \
+      version="1.0" \
+      description="Optimized Sakila Flask Application"
+
+# Set working directory
 WORKDIR /app
 
-# Copy the requirements file into the container at /app
+# Copy dependency file first (for caching)
 COPY requirements.txt .
 
-# Install the required Python packages
+# Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of your application into the container
+# Copy application code
 COPY . .
 
-# Expose the port Flask will run on
+# Create non-root user
+RUN useradd -m appuser
+USER appuser
+
+# Expose only required port
 EXPOSE 5000
 
+# Health check
+HEALTHCHECK CMD curl --fail http://localhost:5000 || exit 1
 
-# Run the Flask application
+# Run application
 CMD ["python", "app.py"]
